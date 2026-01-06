@@ -12,18 +12,24 @@ st.set_page_config(page_title="Spam Classifier", layout="centered")
 st.title("📧 Spam Classification using Naive Bayes")
 
 # -----------------------------
-# Load Dataset
+# Upload Dataset
 # -----------------------------
-@st.cache_data
-def load_data():
-    return pd.read_csv(r"C:\Users\benan\Documents\Data_Scientist\Streamlit\sms_spam_small.csv")
+st.subheader("📂 Upload SMS Spam Dataset")
 
-try:
-    df = load_data()
-    st.success("Dataset loaded successfully!")
-except:
-    st.error("Dataset not found! Place sms_spam_small.csv in the same folder.")
+uploaded_file = st.file_uploader(
+    "Upload sms_spam_small.csv", type=["csv"]
+)
+
+if uploaded_file is None:
+    st.warning("Please upload the dataset to continue.")
     st.stop()
+
+@st.cache_data
+def load_data(file):
+    return pd.read_csv(file)
+
+df = load_data(uploaded_file)
+st.success("✅ Dataset loaded successfully!")
 
 # -----------------------------
 # Dataset Preview
@@ -138,6 +144,3 @@ if st.button("Predict"):
             st.error("🚨 This message is SPAM")
         else:
             st.success("✅ This message is NOT SPAM (HAM)")
-
-
-
