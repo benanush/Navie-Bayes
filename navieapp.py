@@ -22,7 +22,7 @@ try:
     df = load_data()
     st.success("Dataset loaded successfully!")
 except:
-    st.error("Dataset not found! Place sms_spam_samll.csv in the same folder.")
+    st.error("Dataset not found! Place sms_spam_small.csv in the same folder.")
     st.stop()
 
 # -----------------------------
@@ -138,5 +138,6 @@ if st.button("Predict"):
             st.error("🚨 This message is SPAM")
         else:
             st.success("✅ This message is NOT SPAM (HAM)")
+
 
 
